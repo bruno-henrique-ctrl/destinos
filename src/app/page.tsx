@@ -1,95 +1,85 @@
-import Image from "next/image";
+import CardDestino from "@/app/components/CardDestino";
+import { lista } from "@/app/assets/lista";
+import Link from "next/link";
 import styles from "./page.module.css";
 
-export default function Home() {
+const Home = () => {
+  const depoimentos = [
+    {
+      nome: "Maria Silva",
+      comentario: "Minha viagem para Paris foi incrível! Excelente atendimento e experiências inesquecíveis."
+    },
+    {
+      nome: "João Santos",
+      comentario: "Adorei a viagem para Cancún, tudo perfeito! Recomendo muito a agência."
+    },
+    {
+      nome: "Ana Oliveira",
+      comentario: "Tóquio foi surpreendente, a organização da viagem foi impecável."
+    },
+    {
+      nome: "Carlos Pereira",
+      comentario: "Dubai é maravilhoso, uma experiência de luxo e conforto total!"
+    }
+  ];
+  
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className={styles.main}>
+      <h1 className={styles.h1}>Início</h1>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      <section className={styles.section}>
+        <h2 className={styles.h2}>Destaques da Semana</h2>
+        <ul className={styles.ul}>
+          {lista.map(lugar => (
+            lugar.id < 6 &&
+            <li key={lugar.id} className={styles.li}>
+              <CardDestino
+                id={lugar.id}
+                nome={lugar.nome}
+                pais={lugar.pais}
+                descricao={lugar.descricao}
+                img={lugar.img}
+                preco={lugar.preco}
+              />
+            </li>
+          ))}
+        </ul>
+        <Link href={'/destinos'} className={styles.a}>Ver Todos</Link>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.h2}>Ofertas</h2>
+        <ul className={styles.ul}>
+          {lista.map(lugar => (
+            lugar.id > 15 &&
+            <li key={lugar.id} className={styles.li}>
+              <CardDestino
+                id={lugar.id}
+                nome={lugar.nome}
+                pais={lugar.pais}
+                descricao={lugar.descricao}
+                img={lugar.img}
+                preco={lugar.preco}
+              />
+            </li>
+          ))}
+        </ul>
+        <Link href={'/destinos'} className={styles.a}>Ver Todos</Link>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.h2}>Depoimentos</h2>
+        <ul className={styles.depoimentosList}>
+          {depoimentos.map((dep, index) => (
+            <li key={index} className={styles.depoimento}>
+              <p className={styles.comentario}>"{dep.comentario}"</p>
+              <p className={styles.nome}>- {dep.nome}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
+  )
 }
+
+export default Home;

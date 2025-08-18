@@ -1,0 +1,1 @@
+export const promocao = (valor: number) => valor - (valor * 40 / 100)
