@@ -1,49 +1,56 @@
-import { lista } from "@/app/assets/lista";
-import { promocao } from "@/app/assets/promocao";
+import { lista } from "../../_assets/lista";
+import { promocao } from "../../_assets/promocao";
+import Image from "next/image";
 import styles from "./page.module.css";
 
-type Props = {
-    params: { id: string };
-};
-
-const Viagem = async ({ params }: Props) => {
+const ViagemPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
-    const viagem = lista.find(item => item.id === Number(id));
+    const viagem = lista.find(({ id: itemId }) => itemId === Number(id));
 
     if (!viagem) {
-        return <h1>Viagem não encontrada</h1>;
+        return <h1 className={styles.notFound}>Viagem não encontrada</h1>;
     }
 
-    const precoFinal = viagem.id > 15
-        ? promocao(viagem.preco)
-        : viagem.preco;
-
-    const estaEmPromocao = viagem.id > 15;
+    const precoFinal = viagem.id > 15 ? promocao(viagem.preco) : viagem.preco;
+    const emPromocao = viagem.id > 15;
 
     return (
         <main className={styles.main}>
-            <h1 className={styles.h1}>{viagem.nome}</h1>
+            <h1 className={styles.title}>{viagem.nome}</h1>
 
-            <section className={styles.imageContainer}>
-                <img src={viagem.img} alt={viagem.nome} />
+            <section className={styles.imageSection}>
+                <Image
+                    src={viagem.img}
+                    alt={viagem.nome}
+                    width={400}
+                    height={300}
+                    priority
+                />
             </section>
 
-            <section className={styles.section}>
-                <p><strong>País:</strong> {viagem.pais}</p>
-                <p><strong>Descrição:</strong> {viagem.descricao}</p>
-                <p className={styles.price}>
-                    <strong>Preço:</strong>{" "}
-                    {precoFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+            <section className={styles.infoSection}>
+                <p>
+                    <strong>País:</strong> {viagem.pais}
                 </p>
-            </section>
+                <p>
+                    <strong>Descrição:</strong> {viagem.descricao}
+                </p>
+                <p className={`${styles.preco} ${emPromocao ? styles.promocao : ""}`}>
+                    <strong>Preço:</strong>{" "}
+                    {precoFinal.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                    })}
+                </p>
 
-            {estaEmPromocao && (
-                <section className={styles.promotion}>
-                    Promoção especial! Aproveite esta oferta!
-                </section>
-            )}
+                {emPromocao && (
+                    <p className={styles.mensagemPromo}>
+                        🌎 Promoção especial! Aproveite esta oferta imperdível! ✈️
+                    </p>
+                )}
+            </section>
         </main>
     );
 };
 
-export default Viagem;
+export default ViagemPage;

@@ -1,56 +1,108 @@
 .main {
-  max-width: 900px;
-  margin: 6rem auto 2rem; /* margem superior maior para não colidir com header fixo */
-  padding: 2rem 1rem;
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  color: #333;
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    font-family: "Inter", system-ui, sans-serif;
+    min-height: 100vh;
 }
 
-.h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: #2c3e50;
+.title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2rem;
 }
 
-.section {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.imageSection {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
-.imageContainer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+.imageSection img {
+    border-radius: 10px;
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
-.imageContainer img {
-  border-radius: 12px;
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  transition: transform 0.3s ease;
+.imageSection img:hover {
+    transform: scale(1.03);
 }
 
-.imageContainer img:hover {
-  transform: scale(1.03);
+.infoSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
 }
 
-.price {
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 1.3rem;
-  margin-top: 0.5rem;
+.infoSection strong {
+    color: #00408a;
 }
 
-.promotion {
-  color: #e74c3c;
-  font-weight: 700;
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
+.preco {
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: #111;
+}
+
+.promocao {
+    color: #e63946;
+    font-weight: 700;
+}
+
+.mensagemPromo {
+    background: #ffe5e5;
+    color: #e63946;
+    border: 1px solid #ffb3b3;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 1rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.3);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+    }
+}
+
+.notFound {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #888;
+    margin-top: 5rem;
+}
+
+@media (max-width: 768px) {
+    .main {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .infoSection {
+        font-size: 0.95rem;
+    }
 }
